@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note/widget/CustomeTextFiled.dart';
 
 class NotesSheet extends StatelessWidget {
   const NotesSheet({super.key});
@@ -10,29 +11,15 @@ class NotesSheet extends StatelessWidget {
         SizedBox(height: 20),
         Padding(
           padding: EdgeInsets.all(8.0),
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: 'Enter Title',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
+          child: CustomeTextField(
+            texthint: "Title",
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
             height: 160,
-            child: TextField(
-              maxLines: null,
-              expands: true,
-              decoration: InputDecoration(
-                hintText: 'Content',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
+            child: CustomeTextField(texthint: "Content", expandeBool: true),
           ),
         ),
         SizedBox(height: 4),
