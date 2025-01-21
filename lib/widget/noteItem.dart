@@ -10,36 +10,51 @@ class NoteItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Container(
-        height: 250,
+        padding: EdgeInsets.only(top: 24, bottom: 24, left: 16),
+        height: 200,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: Color(0xfffbcf7e), borderRadius: BorderRadius.circular(20)),
+          color: Color(0xfffbcf7e),
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: Text("Flutter tips",
+              title: Text(
+                "Flutter tips",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 26,
+                ),
+              ),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 6),
+                child: Text(
+                  "Build your career with Kerlos",
                   style: TextStyle(
-                      color: Colors.black, fontSize: 30, fontWeight: fontwe)),
-              subtitle: Text("Build your career with",
-                  style: TextStyle(color: Colors.black54, fontSize: 20)),
+                    color: Colors.black54,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
               trailing: IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete,
                   color: Colors.black,
-                  size: 35,
+                  size: 27,
                 ),
               ),
             ),
-            SizedBox(height: 110),
+            Spacer(),
             Padding(
-              padding: const EdgeInsets.only(right: 20, bottom: 5),
+              padding: const EdgeInsets.only(right: 15),
               child: Text(
-                "May 21,2022",
-                style: TextStyle(color: Colors.black54),
+                "May 21, 2022",
+                style: TextStyle(color: Colors.black54, fontSize: 16),
               ),
-            )
+            ),
           ],
         ),
       ),
