@@ -33,9 +33,6 @@ class NotesViewBody extends StatelessWidget {
       body: Column(
         children: [
           NoteItem(),
-          SizedBox(
-            height: 20,
-          )
         ],
       ),
     );
