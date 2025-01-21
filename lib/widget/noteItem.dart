@@ -31,7 +31,7 @@ class NoteItem extends StatelessWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 6),
                 child: Text(
-                  "Build your career with Kerlos",
+                  "XXX XXX XXX XXX Kerlos",
                   style: TextStyle(
                     color: Colors.black54,
                     fontSize: 18,
@@ -51,7 +51,7 @@ class NoteItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 15),
               child: Text(
-                "May 21, 2022",
+                "jan 21, 2025",
                 style: TextStyle(color: Colors.black54, fontSize: 16),
               ),
             ),

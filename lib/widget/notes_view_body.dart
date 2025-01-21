@@ -10,7 +10,7 @@ class NotesViewBody extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "notes",
+          "Notes",
           style: TextStyle(
             fontSize: 30,
           ),
@@ -33,8 +33,8 @@ class NotesViewBody extends StatelessWidget {
       ),
       body: Column(
         children: [
-          NoteItem(),
-          NotesListView(),
+          SizedBox(height: 5),
+          Expanded(child: NotesListView()),
         ],
       ),
     );
