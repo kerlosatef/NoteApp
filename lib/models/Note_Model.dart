@@ -14,9 +14,9 @@ class NoteModel {
   final int color;
 
   NoteModel({
-    required this.date,
-    required this.subtitle,
     required this.title,
+    required this.subtitle,
+    required this.date,
     required this.color,
   });
 }
