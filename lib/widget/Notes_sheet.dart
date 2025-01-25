@@ -32,7 +32,11 @@ class _NotesSheetState extends State<NotesSheet> {
           return AbsorbPointer(
             absorbing: state is AddNoteLoading ? true : false,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(
+                  left: 8,
+                  right: 8,
+                  top: 8,
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: AddNoteForm(),
             ),
           );
