@@ -3,14 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note/Add_Note_cubit/add_note_cubit.dart';
 import 'package:note/models/Note_Model.dart';
 import 'package:note/widget/CustomeTextFiled.dart';
+import 'package:note/widget/custome_button.dart';
 
 class AddNoteForm extends StatefulWidget {
-  const AddNoteForm({
+  AddNoteForm({
     super.key,
+    this.isLoading = false,
   });
 
   @override
   State<AddNoteForm> createState() => _AddNoteFormState();
+  bool isLoading;
 }
 
 class _AddNoteFormState extends State<AddNoteForm> {
@@ -18,6 +21,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   String? title, subtitle;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -25,9 +29,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
       autovalidateMode: autovalidateMode,
       child: Column(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 10),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: CustomeTextField(
               onSaved: (value) {
                 title = value;
@@ -38,47 +42,43 @@ class _AddNoteFormState extends State<AddNoteForm> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 160,
+              height: 150,
               child: CustomeTextField(
-                  onSaved: (value) {
-                    subtitle = value;
-                  },
-                  texthint: "Content",
-                  expandeBool: true),
-            ),
-          ),
-          SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
-                if (formkey.currentState!.validate()) {
-                  formkey.currentState!.save();
-                  var noteModel = NoteModel(
-                      title: title!,
-                      subtitle: subtitle!,
-                      date: DateTime.now().toString(),
-                      // ignore: deprecated_member_use
-                      color: Colors.blue.value);
-                  BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
-                } else {
-                  autovalidateMode = AutovalidateMode.always;
-                  setState(() {});
-                }
-              },
-              child: Container(
-                alignment: AlignmentDirectional.center,
-                child: Text(
-                  "ADD",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue),
+                onSaved: (value) {
+                  subtitle = value;
+                },
+                texthint: "Content",
+                expandeBool: true,
               ),
             ),
-          )
+          ),
+          const SizedBox(height: 1),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: BlocBuilder<AddNoteCubit, AddNoteState>(
+              builder: (context, state) {
+                return CustomeButton(
+                  isLoading: state is AddNoteLoading ? true : false,
+                  onTap: () {
+                    if (formkey.currentState!.validate()) {
+                      formkey.currentState!.save();
+                      var noteModel = NoteModel(
+                        title: title!,
+                        subtitle: subtitle!,
+                        date: DateTime.now().toString(),
+                        color: Colors.blue.value,
+                      );
+                      BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
+                    } else {
+                      setState(() {
+                        autovalidateMode = AutovalidateMode.always;
+                      });
+                    }
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

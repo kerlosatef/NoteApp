@@ -29,9 +29,13 @@ class _NotesSheetState extends State<NotesSheet> {
           }
         },
         builder: (context, state) {
-          return ModalProgressHUD(
-              inAsyncCall: state is AddNoteLoading ? true : false,
-              child: AddNoteForm());
+          return AbsorbPointer(
+            absorbing: state is AddNoteLoading ? true : false,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AddNoteForm(),
+            ),
+          );
         },
       ),
     );
