@@ -17,20 +17,23 @@ class _NotesSheetState extends State<NotesSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddNoteCubit, AddNoteState>(
-      listener: (context, state) {
-        if (state is AddNoteFailuer) {
-          print("failed ${state.errMessage}");
-        }
-        if (state is AddNoteSuccess) {
-          Navigator.pop(context);
-        }
-      },
-      builder: (context, state) {
-        return ModalProgressHUD(
-            inAsyncCall: state is AddNoteLoading ? true : false,
-            child: AddNoteForm());
-      },
+    return BlocProvider(
+      create: (context) => AddNoteCubit(),
+      child: BlocConsumer<AddNoteCubit, AddNoteState>(
+        listener: (context, state) {
+          if (state is AddNoteFailuer) {
+            print("failed ${state.errMessage}");
+          }
+          if (state is AddNoteSuccess) {
+            Navigator.pop(context);
+          }
+        },
+        builder: (context, state) {
+          return ModalProgressHUD(
+              inAsyncCall: state is AddNoteLoading ? true : false,
+              child: AddNoteForm());
+        },
+      ),
     );
   }
 }

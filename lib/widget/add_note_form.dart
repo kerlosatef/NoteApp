@@ -53,6 +53,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
             child: GestureDetector(
               onTap: () {
                 if (formkey.currentState!.validate()) {
+                  formkey.currentState!.save();
                   var noteModel = NoteModel(
                       title: title!,
                       subtitle: subtitle!,
@@ -60,7 +61,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
                       // ignore: deprecated_member_use
                       color: Colors.blue.value);
                   BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
-                  formkey.currentState!.save();
                 } else {
                   autovalidateMode = AutovalidateMode.always;
                   setState(() {});
