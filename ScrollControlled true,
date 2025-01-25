@@ -1,0 +1,29 @@
+[33mdd8401c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m fixed to keyborad
+[33m56897ac[m fixed
+[33mcd21c2d[m refactor provider
+[33m5dffaea[m traggle
+[33m0f18c72[m observe
+[33mceab8ec[m add note cubie to add note bottom
+[33m342316c[m provider add note
+[33m6271fe0[m Merge branch 'main' of https://github.com/kerlosatef/NoteApp
+[33m60e08de[m add notes method
+[33me8a900f[m register adapter
+[33m0447edf[m addnote model
+[33m4dfcaea[m add mode stats
+[33mb2681d4[m create cubit
+[33mdb41fb3[m vallidtor
+[33m5863327[m init hive and openbox
+[33mc7931ea[m create type adapter
+[33m6ba3601[m add hive
+[33m8e6a06f[m notemodel
+[33m81ab2ba[m editNotebody&view
+[33m228856a[m textfieldcustome
+[33m8b40669[m bottomshett
+[33m46ccaab[m floatActionButton
+[33m5e31e5a[m Listview style
+[33m5977850[m NotesListView
+[33mfc7638e[m style
+[33m13b1344[m notesItem
+[33mb6aa0db[m widget folder
+[33mdb805dd[m change thame
+[33mb6178c5[m first commit
