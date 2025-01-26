@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note/main.dart';
 import 'package:note/models/Note_Model.dart';
 import 'package:note/widget/edit_note_view.dart';
 
@@ -39,7 +41,7 @@ class NoteItem extends StatelessWidget {
                   ),
                 ),
                 subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 6),
+                  padding: EdgeInsets.only(top: 10, bottom: 6),
                   child: Text(
                     note.subtitle,
                     style: TextStyle(
@@ -49,7 +51,9 @@ class NoteItem extends StatelessWidget {
                   ),
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    note.delete();
+                  },
                   icon: const Icon(
                     Icons.delete,
                     color: Colors.black,
