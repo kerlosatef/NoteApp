@@ -5,9 +5,9 @@ import 'package:note/widget/edit_note_view.dart';
 class NoteItem extends StatelessWidget {
   const NoteItem({
     super.key,
-    required this.noteItem,
+    required this.note,
   });
-  final NoteModel noteItem;
+  final NoteModel note;
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +18,13 @@ class NoteItem extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return EditNoteView();
           }));
-          print("test");
         },
         child: Container(
           padding: EdgeInsets.only(top: 24, bottom: 24, left: 16),
           height: 200,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(0xfffbcf7e),
+            color: Color(note.color),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
@@ -33,7 +32,7 @@ class NoteItem extends StatelessWidget {
             children: [
               ListTile(
                 title: Text(
-                  noteItem.title,
+                  note.title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 24,
@@ -42,7 +41,7 @@ class NoteItem extends StatelessWidget {
                 subtitle: Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 6),
                   child: Text(
-                    noteItem.subtitle,
+                    note.subtitle,
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 16,
@@ -62,7 +61,7 @@ class NoteItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: Text(
-                  noteItem.date,
+                  note.date,
                   style: TextStyle(color: Colors.black54, fontSize: 16),
                 ),
               ),
