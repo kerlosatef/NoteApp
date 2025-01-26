@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:note/cubit/addnotes/add_note_cubit.dart';
 import 'package:note/models/Note_Model.dart';
 import 'package:note/widget/CustomeTextFiled.dart';
+import 'package:note/widget/Icon_lens.dart';
 import 'package:note/widget/custome_button.dart';
 
 class AddNoteForm extends StatefulWidget {
@@ -53,6 +54,19 @@ class _AddNoteFormState extends State<AddNoteForm> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15, top: 10, bottom: 10),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                        onTap: () {}, child: Icon(Icons.date_range, size: 30)),
+                    SizedBox(width: 10),
+                    IconLens(),
+                  ],
+                )),
+          ),
           const SizedBox(height: 1),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -82,6 +96,35 @@ class _AddNoteFormState extends State<AddNoteForm> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Coloritem extends StatelessWidget {
+  const Coloritem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 38,
+      backgroundColor: Colors.red,
+    );
+  }
+}
+
+class ColorListView extends StatelessWidget {
+  const ColorListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 38 * 2,
+      child: ListView.builder(
+          itemCount: 5,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return Coloritem();
+          }),
     );
   }
 }
