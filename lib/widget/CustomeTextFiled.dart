@@ -5,11 +5,13 @@ class CustomeTextField extends StatelessWidget {
       {super.key,
       this.expandeBool = false,
       required this.texthint,
-      this.onSaved});
+      this.onSaved,
+      this.onChanged});
 
   final String texthint;
   final bool expandeBool;
   final void Function(String?)? onSaved;
+  final Function(String?)? onChanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -20,6 +22,7 @@ class CustomeTextField extends StatelessWidget {
           return null;
         }
       },
+      onChanged: onChanged,
       onSaved: onSaved,
       maxLines: null,
       expands: expandeBool,

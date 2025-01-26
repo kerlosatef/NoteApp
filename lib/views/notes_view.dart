@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note/cubit/notes/notes_cubit.dart';
+import 'package:note/cubit/theme_cubit.dart';
 import 'package:note/widget/Notes_sheet.dart';
 import 'package:note/widget/notes_view_body.dart';
 
@@ -9,10 +10,13 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeCubit = BlocProvider.of<ThemeCubit>(context);
+    final isDarkMode = themeCubit.state.brightness == Brightness.dark;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
+        backgroundColor: isDarkMode ? Colors.white : Colors.black,
         onPressed: () {
           showModalBottomSheet(
               shape: RoundedRectangleBorder(
@@ -24,7 +28,10 @@ class NotesView extends StatelessWidget {
                 return NotesSheet();
               });
         },
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: isDarkMode ? Colors.black : Colors.white,
+        ),
       ),
       body: NotesViewBody(),
     );

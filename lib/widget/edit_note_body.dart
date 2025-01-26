@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note/cubit/addnotes/add_note_cubit.dart';
+import 'package:note/cubit/notes/notes_cubit.dart';
+import 'package:note/models/Note_Model.dart';
 import 'package:note/widget/CustomeTextFiled.dart';
 
-class EditNoteBody extends StatelessWidget {
-  const EditNoteBody({super.key});
+class EditNoteBody extends StatefulWidget {
+  const EditNoteBody({super.key, required this.note});
+
+  final NoteModel note;
 
   @override
+  State<EditNoteBody> createState() => _EditNoteBodyState();
+}
+
+class _EditNoteBodyState extends State<EditNoteBody> {
+  @override
   Widget build(BuildContext context) {
+    String? title, subtitle;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -23,9 +35,18 @@ class EditNoteBody extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Color(0xff3d3d3d),
                     borderRadius: BorderRadius.circular(10)),
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
+                child: GestureDetector(
+                  onTap: () {
+                    widget.note.title = title ?? widget.note.title;
+                    widget.note.subtitle = subtitle ?? widget.note.subtitle;
+                    widget.note.save();
+                    Navigator.pop(context);
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                  },
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  ),
                 )),
           )
         ],
@@ -35,13 +56,19 @@ class EditNoteBody extends StatelessWidget {
         child: Column(
           children: [
             CustomeTextField(
-              texthint: "Title",
+              onChanged: (value) {
+                title = value;
+              },
+              texthint: widget.note.title,
             ),
             SizedBox(height: 10),
             SizedBox(
               height: 160,
               child: CustomeTextField(
-                texthint: "Content",
+                onChanged: (value) {
+                  subtitle = value;
+                },
+                texthint: widget.note.subtitle,
                 expandeBool: true,
               ),
             )
