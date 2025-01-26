@@ -24,7 +24,7 @@ class NoteItem extends StatelessWidget {
         },
         child: Container(
           padding: EdgeInsets.only(top: 24, bottom: 24, left: 16),
-          height: 200,
+          height: 170,
           width: double.infinity,
           decoration: BoxDecoration(
             color: Color(note.color),
@@ -42,12 +42,12 @@ class NoteItem extends StatelessWidget {
                   ),
                 ),
                 subtitle: Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 6),
+                  padding: EdgeInsets.only(top: 5, bottom: 5),
                   child: Text(
                     note.subtitle,
                     style: TextStyle(
                       color: Colors.black54,
-                      fontSize: 16,
+                      fontSize: 14,
                     ),
                   ),
                 ),
@@ -63,12 +63,11 @@ class NoteItem extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(),
               Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: Text(
                   note.date,
-                  style: TextStyle(color: Colors.black54, fontSize: 16),
+                  style: TextStyle(color: Colors.black54, fontSize: 14),
                 ),
               ),
             ],
