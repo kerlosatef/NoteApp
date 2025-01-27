@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note/cubit/addnotes/add_note_cubit.dart';
 import 'package:note/widget/constet.color.dart';
 
 class ColorItem extends StatelessWidget {
-  const ColorItem({super.key, required this.isActive, required this.color});
+  const ColorItem({
+    super.key,
+    required this.isActive,
+    required this.color,
+  });
 
   final bool isActive;
   final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return isActive
-        ? CircleAvatar(
-            radius: 38,
-            backgroundColor: Colors.white,
-            child: CircleAvatar(
-              radius: 34,
-              backgroundColor: color,
-            ),
-          )
-        : CircleAvatar(
-            radius: 38,
-            backgroundColor: color,
-          );
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CircleAvatar(
+          radius: 38,
+          backgroundColor: color,
+        ),
+        if (isActive)
+          const Icon(
+            Icons.check,
+            color: Colors.white,
+            size: 30,
+          ),
+      ],
+    );
   }
 }
 
@@ -46,28 +50,50 @@ class _ColorsListViewState extends State<ColorsListView> {
       elevation: 10,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: SizedBox(
-          height: 300,
-          child: GridView.builder(
-            itemCount: kColors.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  // إرجاع اللون المختار
-                  Navigator.pop(context, kColors[index]);
-                },
-                child: ColorItem(
-                  color: kColors[index],
-                  isActive: currentIndex == index,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 300,
+              child: GridView.builder(
+                itemCount: kColors.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
-              );
-            },
-          ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = index;
+                      });
+                    },
+                    child: ColorItem(
+                      color: kColors[index],
+                      isActive: currentIndex == index,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context, kColors[currentIndex]);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: kColors[currentIndex],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text(
+                "Done",
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          ],
         ),
       ),
     );

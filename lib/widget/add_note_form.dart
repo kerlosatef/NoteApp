@@ -6,6 +6,7 @@ import 'package:note/models/Note_Model.dart';
 import 'package:note/widget/CustomeTextFiled.dart';
 import 'package:note/widget/Icon_lens.dart';
 import 'package:note/widget/custome_button.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AddNoteForm extends StatefulWidget {
   AddNoteForm({
@@ -23,6 +24,8 @@ class _AddNoteFormState extends State<AddNoteForm> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   String? title, subtitle;
+  DateTime? selectedDate; // المتغير الذي سيحتفظ بالقيمة
+
   void _showColorDialog(BuildContext context) async {
     final selectedColor = await showDialog<Color>(
       context: context,
@@ -30,6 +33,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
     );
 
     if (selectedColor != null) {
+      // تحديث اللون المختار
       BlocProvider.of<AddNoteCubit>(context).color = selectedColor;
       setState(() {});
     }
@@ -72,7 +76,53 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 child: Row(
                   children: [
                     GestureDetector(
-                        onTap: () {}, child: Icon(Icons.date_range, size: 30)),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              elevation: 20,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      width: 300,
+                                      height: 350,
+                                      child: SfDateRangePicker(
+                                        view: DateRangePickerView.month,
+                                        onSelectionChanged:
+                                            (DateRangePickerSelectionChangedArgs
+                                                args) {
+                                          setState(() {
+                                            if (args.value is DateTime) {
+                                              selectedDate = args
+                                                  .value; // حفظ التاريخ المحدد
+                                            }
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("Done"),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: const Icon(Icons.date_range, size: 30),
+                    ),
                     SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
@@ -96,7 +146,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
                       var noteModel = NoteModel(
                         title: title!,
                         subtitle: subtitle!,
-                        date: DateFormat("MM-dd-yyyy").format(DateTime.now()),
+                        date: selectedDate != null
+                            ? DateFormat.yMMMd().format(selectedDate!)
+                            : DateFormat.yMMMd().format(DateTime.now()),
                         color: Colors.blueAccent.value,
                       );
                       BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
