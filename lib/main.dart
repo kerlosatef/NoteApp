@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:note/cubit/addnotes/add_note_cubit.dart';
 import 'package:note/cubit/notes/notes_cubit.dart';
 import 'package:note/cubit/theme_cubit.dart';
 import 'package:note/models/Note_Model.dart';
@@ -26,6 +27,7 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => NotesCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => AddNoteCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, theme) {

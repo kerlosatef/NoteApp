@@ -1,41 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note/cubit/addnotes/add_note_cubit.dart';
+import 'package:note/widget/Icon_lens.dart';
 import 'package:note/widget/constet.color.dart';
+import '../../models/note_model.dart';
 
-class ColorItem extends StatelessWidget {
-  const ColorItem({super.key, required this.isActive, required this.color});
+class EditNoteColorsList extends StatefulWidget {
+  const EditNoteColorsList({super.key, required this.note});
 
-  final bool isActive;
-  final Color color;
+  final NoteModel note;
 
   @override
-  Widget build(BuildContext context) {
-    return isActive
-        ? CircleAvatar(
-            radius: 38,
-            backgroundColor: Colors.white,
-            child: CircleAvatar(
-              radius: 34,
-              backgroundColor: color,
-            ),
-          )
-        : CircleAvatar(
-            radius: 38,
-            backgroundColor: color,
-          );
+  State<EditNoteColorsList> createState() => _EditNoteColorsListState();
+}
+
+class _EditNoteColorsListState extends State<EditNoteColorsList> {
+  late int currentIndex;
+
+  @override
+  void initState() {
+    currentIndex = kColors.indexOf(Color(widget.note.color));
+    super.initState();
   }
-}
-
-class ColorsListView extends StatefulWidget {
-  const ColorsListView({super.key});
-
-  @override
-  State<ColorsListView> createState() => _ColorsListViewState();
-}
-
-class _ColorsListViewState extends State<ColorsListView> {
-  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +42,11 @@ class _ColorsListViewState extends State<ColorsListView> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  // إرجاع اللون المختار
-                  Navigator.pop(context, kColors[index]);
+                  setState(() {
+                    currentIndex = index;
+                    widget.note.color = kColors[index].value;
+                  });
+                  Navigator.pop(context);
                 },
                 child: ColorItem(
                   color: kColors[index],

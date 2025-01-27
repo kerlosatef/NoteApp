@@ -23,6 +23,17 @@ class _AddNoteFormState extends State<AddNoteForm> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   String? title, subtitle;
+  void _showColorDialog(BuildContext context) async {
+    final selectedColor = await showDialog<Color>(
+      context: context,
+      builder: (context) => const ColorsListView(),
+    );
+
+    if (selectedColor != null) {
+      BlocProvider.of<AddNoteCubit>(context).color = selectedColor;
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +74,12 @@ class _AddNoteFormState extends State<AddNoteForm> {
                     GestureDetector(
                         onTap: () {}, child: Icon(Icons.date_range, size: 30)),
                     SizedBox(width: 10),
-                    IconLens(),
+                    GestureDetector(
+                      onTap: () {
+                        _showColorDialog(context);
+                      },
+                      child: const Icon(Icons.color_lens, size: 30),
+                    ),
                   ],
                 )),
           ),
@@ -81,7 +97,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                         title: title!,
                         subtitle: subtitle!,
                         date: DateFormat("MM-dd-yyyy").format(DateTime.now()),
-                        color: Colors.blue.value,
+                        color: Colors.blueAccent.value,
                       );
                       BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
                     } else {
