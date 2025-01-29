@@ -7,7 +7,9 @@ A simple and efficient note-taking application built using Flutter.
 - Add, edit, and delete notes  
 - Save notes with timestamps  
 - Beautiful and responsive UI  
-- Uses local storage for persistence  
+- Uses local storage for persistence with Hive  
+- State management using Cubit  
+
 
 ## Installation
 
