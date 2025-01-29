@@ -12,5 +12,32 @@ A simple and efficient note-taking application built using Flutter.
 ## Installation
 
 1. Clone the repository:  
-   ```sh
-   git clone https://github.com/kerlosatef/NoteApp.git
+```sh
+git clone https://github.com/kerlosatef/NoteApp.git
+```
+2. Navigate to the project directory:
+```sh
+cd NoteApp-main
+```
+3. Install dependencies:
+```sh
+flutter pub get
+```
+4. Run the application:
+```sh
+flutter run
+```
+
+## Requirements
+Flutter SDK installed
+Dart installed
+Android Emulator or a physical device for testing
+
+## Contributing
+Feel free to fork the repository and submit pull requests.
+
+## License
+This project is licensed under the MIT License.
+
+
+
