@@ -12,6 +12,9 @@ class NotesViewBody extends StatefulWidget {
 }
 
 class _NotesViewBodyState extends State<NotesViewBody> {
+  String searchQuery = '';
+  FocusNode focusNode = FocusNode();
+
   @override
   void initState() {
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
@@ -33,37 +36,38 @@ class _NotesViewBodyState extends State<NotesViewBody> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 20, top: 5),
+            padding: const EdgeInsets.only(top: 10.0),
             child: GestureDetector(
-              onTap: () {},
+              // هذا الـ GestureDetector سيغطى الشاشة بالكامل
+              onTap: () {
+                focusNode.unfocus();
+              },
               child: Container(
-                  height: 40,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      color: isDarkMode
-                          ? Colors.white.withOpacity(0.1)
-                          : Colors.black.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(22)),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 10),
-                      Text("search",
-                          style: TextStyle(
-                            color: isDarkMode ? Colors.white : Colors.black,
-                            fontSize: 16,
-                          )),
-                      SizedBox(width: 50),
-                      Icon(
-                        Icons.search,
-                        color: isDarkMode ? Colors.white : Colors.black,
-                      ),
-                    ],
-                  )),
+                width: 190,
+                height: 50,
+                padding: const EdgeInsets.only(right: 10),
+                child: TextField(
+                  focusNode: focusNode,
+                  decoration: InputDecoration(
+                    hintStyle: TextStyle(fontSize: 14),
+                    hintText: 'Search Notes...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(22),
+                    ),
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      searchQuery = value;
+                    });
+                  },
+                ),
+              ),
             ),
           ),
-          SizedBox(width: 17),
+          SizedBox(width: 10),
           Padding(
-            padding: const EdgeInsets.only(right: 30),
+            padding: const EdgeInsets.only(right: 20),
             child: GestureDetector(
               onTap: () {
                 themeCubit.toggleTheme();
@@ -75,11 +79,33 @@ class _NotesViewBodyState extends State<NotesViewBody> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 5),
-          Expanded(child: NotesListView()),
-        ],
+      body: GestureDetector(
+        onTap: () {
+          focusNode.unfocus();
+        },
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Expanded(
+              child: BlocBuilder<NotesCubit, NotesState>(
+                builder: (context, state) {
+                  if (state is NotesSuccess) {
+                    final notes = context.read<NotesCubit>().notes ?? [];
+                    final filteredNotes = notes
+                        .where((note) => note.title
+                            .toLowerCase()
+                            .contains(searchQuery.toLowerCase()))
+                        .toList();
+
+                    return NotesListView(notes: filteredNotes);
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

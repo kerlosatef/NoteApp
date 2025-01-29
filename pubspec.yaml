@@ -31,3 +31,6 @@ fonts:
   - family: Poppins
     fonts:
       - assets: assets/fonts/Poppins-Regular.ttf
+
+assets:
+  - assets/images/logo.png

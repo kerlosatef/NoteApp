@@ -4,6 +4,8 @@ import 'package:note/cubit/addnotes/add_note_cubit.dart';
 import 'package:note/cubit/notes/notes_cubit.dart';
 import 'package:note/models/Note_Model.dart';
 import 'package:note/widget/CustomeTextFiled.dart';
+import 'package:note/widget/Icon_lens.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class EditNoteBody extends StatefulWidget {
   const EditNoteBody({super.key, required this.note});
@@ -15,6 +17,20 @@ class EditNoteBody extends StatefulWidget {
 }
 
 class _EditNoteBodyState extends State<EditNoteBody> {
+  DateTime? selectedDate; // المتغير الذي سيحتفظ بالقيمة
+
+  void _showColorDialog(BuildContext context) async {
+    final selectedColor = await showDialog<Color>(
+      context: context,
+      builder: (context) => const ColorsListView(),
+    );
+
+    if (selectedColor != null) {
+      BlocProvider.of<AddNoteCubit>(context).color = selectedColor;
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String? title, subtitle;
@@ -71,7 +87,8 @@ class _EditNoteBodyState extends State<EditNoteBody> {
                 texthint: widget.note.subtitle,
                 expandeBool: true,
               ),
-            )
+            ),
+            SizedBox(height: 10),
           ],
         ),
       ),

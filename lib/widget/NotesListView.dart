@@ -5,25 +5,21 @@ import 'package:note/models/Note_Model.dart';
 import 'package:note/widget/noteItem.dart';
 
 class NotesListView extends StatelessWidget {
-  NotesListView({super.key});
+  final List<NoteModel> notes;
+
+  // نضيف الـ parameter هنا
+  NotesListView({super.key, required this.notes});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotesCubit, NotesState>(
-      builder: (context, state) {
-        List<NoteModel> notes =
-            BlocProvider.of<NotesCubit>(context).notes ?? [];
-        print(notes);
-        return ListView.builder(
-          itemCount: notes.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: NoteItem(
-                note: notes[index],
-              ),
-            );
-          },
+    return ListView.builder(
+      itemCount: notes.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          child: NoteItem(
+            note: notes[index],
+          ),
         );
       },
     );

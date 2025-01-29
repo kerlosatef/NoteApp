@@ -123,7 +123,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                       },
                       child: const Icon(Icons.date_range, size: 30),
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(width: 30),
                     GestureDetector(
                       onTap: () {
                         _showColorDialog(context);
